@@ -76,14 +76,15 @@ export class HomePage {
     }
   ];
 
-  reorderAnimals(indexes) {
-    this.animals = reorderArray(this.animals, indexes);
-  }
+  //reorderAnimals(indexes) {
+  //  this.animals = reorderArray(this.animals, indexes);
+  //}
 
   // les variables se déclarent en général avant le constructeur
   private currentPosition: number;
 
   public result: string;
+  public showReorder = false;
 
   constructor(public navCtrl: NavController) {
 
@@ -140,4 +141,5 @@ export class HomePage {
       }
     }
   }
+
 }
