@@ -74,7 +74,7 @@ export class HomePage {
   ];
 
   // les variables se déclarent en général avant le constructeur
-  private currentPosition:number;
+  private currentPosition: number;
 
   constructor(public navCtrl: NavController) {
 
@@ -84,7 +84,12 @@ export class HomePage {
    * Choix aléatoire d'un animal
    */
   pickAnimalPosition() {
-    let pos = Math.floor(Math.random() * this.animals.length);
+    let pos;
+    if (!this.currentPosition) {
+      pos = Math.floor(Math.random() * this.animals.length);
+    }else{
+      pos = this.currentPosition;
+    }
     return pos;
   }
 
