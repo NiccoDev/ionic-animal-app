@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, reorderArray } from 'ionic-angular';
+import { PercentPipe } from '@angular/common/src/pipes';
 
 @Component({
   selector: 'page-home',
@@ -7,74 +8,82 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  //percent = new PercentPipe();
+
   animals = [
     {
       'title': 'Vache',
-      'image': 'img/animals/cow-icon.png',
+      'image': 'imgs/animals/cow-icon.png',
       'desc': 'Meugle',
       'file': '/sounds/cow.mp3',
       'playing': false
     },
     {
       'title': 'Dauphin',
-      'image': 'img/animals/dolphin-icon.png',
+      'image': 'imgs/animals/dolphin-icon.png',
       'desc': 'Siffle',
       'file': '/sounds/dolphin.mp3',
       'playing': false
     },
     {
       'title': 'Grenouille',
-      'image': 'img/animals/frog-icon.png',
+      'image': 'imgs/animals/frog-icon.png',
       'desc': 'Coasse',
       'file': '/sounds/frog.mp3',
       'playing': false
     },
     {
       'title': 'Oiseau',
-      'image': 'img/animals/bird-icon.png',
+      'image': 'imgs/animals/bird-icon.png',
       'desc': 'Chante',
       'file': '/sounds/bird.mp3',
       'playing': false
     },
     {
       'title': 'Cochon',
-      'image': 'img/animals/pig-icon.png',
+      'image': 'imgs/animals/pig-icon.png',
       'desc': 'Grogne',
       'file': '/sounds/pig.mp3',
       'playing': false
     },
     {
       'title': 'Chien',
-      'image': 'img/animals/puppy-icon.png',
+      'image': 'imgs/animals/puppy-icon.png',
       'desc': 'Aboie',
       'file': '/sounds/dog.mp3',
       'playing': false
     },
     {
       'title': 'Chat',
-      'image': 'img/animals/black-cat-icon.png',
+      'image': 'imgs/animals/black-cat-icon.png',
       'desc': 'Miaule',
       'file': '/sounds/cat.mp3',
       'playing': false
     },
     {
       'title': 'Cheval',
-      'image': 'img/animals/horse-icon.png',
+      'image': 'imgs/animals/horse-icon.png',
       'desc': 'Hennit',
       'file': '/sounds/horse.wav',
       'playing': false
     },
     {
       'title': 'Ane',
-      'image': 'img/animals/donkey-icon.png',
+      'image': 'imgs/animals/donkey-icon.png',
       'desc': 'Brait',
       'file': '/sounds/donkey.wav',
       'playing': false
     }
   ];
 
+  reorderAnimals(indexes) {
+    this.animals = reorderArray(this.animals, indexes);
+  }
+
   // les variables se déclarent en général avant le constructeur
   private currentPosition: number;
+
+  public result: string;
 
   constructor(public navCtrl: NavController) {
 
@@ -87,7 +96,7 @@ export class HomePage {
     let pos;
     if (!this.currentPosition) {
       pos = Math.floor(Math.random() * this.animals.length);
-    }else{
+    } else {
       pos = this.currentPosition;
     }
     return pos;
@@ -97,6 +106,9 @@ export class HomePage {
    * Lecture d'un son
    */
   playSound() {
+
+    this.result = "";
+
     //choix d'un son
     this.currentPosition = this.pickAnimalPosition();
     let choosenAnimal = this.animals[this.currentPosition];
@@ -110,4 +122,22 @@ export class HomePage {
     audio.play();
   }
 
+  /**
+   * deviner l'animal en fonction de son cri
+   * @param pos 
+   */
+  guess(pos) {
+    //est ce que l'on a joué un son?
+    if (this.currentPosition) {
+      //est ce que tu as choisi le bon animal?
+      if (pos == this.currentPosition) {
+        //résultat
+        this.result = "Tu as gagné";
+        //réinitialisation du choix pour faire un nouveau jeu
+        this.currentPosition = null;
+      } else {
+        this.result = "Essaye encore";
+      }
+    }
+  }
 }
