@@ -73,6 +73,9 @@ export class HomePage {
     }
   ];
 
+  // les variables se déclarent en général avant le constructeur
+  private currentPosition:number;
+
   constructor(public navCtrl: NavController) {
 
   }
@@ -80,9 +83,23 @@ export class HomePage {
   /**
    * Choix aléatoire d'un animal
    */
-  pickAnimal(){
+  pickAnimalPosition() {
     let pos = Math.floor(Math.random() * this.animals.length);
     return pos;
+  }
+
+  /**
+   * Lecture d'un son
+   */
+  playSound() {
+    //choix d'un son
+    this.currentPosition = this.pickAnimalPosition();
+    let choosenAnimal = this.animals[this.currentPosition];
+
+    //chargement du son
+    let audio = new Audio();
+    audio.src = 'assets' + choosenAnimal.file;
+    audio.load();
   }
 
 }
