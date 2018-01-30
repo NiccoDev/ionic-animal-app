@@ -100,6 +100,9 @@ export class HomePage {
     let audio = new Audio();
     audio.src = 'assets' + choosenAnimal.file;
     audio.load();
+
+    //lecture du son
+    audio.play();
   }
 
 }
