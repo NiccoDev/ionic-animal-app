@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, reorderArray } from 'ionic-angular';
-import { PercentPipe } from '@angular/common/src/pipes';
+import { NavController, reorderArray, ToastController, LoadingController } from 'ionic-angular';
+//import { PercentPipe } from '@angular/common/src/pipes';
 
 @Component({
   selector: 'page-home',
@@ -86,7 +86,7 @@ export class HomePage {
   public result: string;
   public showReorder = false;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
 
   }
 
@@ -141,13 +141,34 @@ export class HomePage {
       //est ce que tu as choisi le bon animal?
       if (animalName == this.currentAnimal.title) {
         //résultat
-        this.result = "Tu as gagné";
+        //this.result = "Tu as gagné";
+        this.toastCtrl.create({
+          message: "Gagné!",
+          duration: 1200,
+          position: 'top',
+        }).present();
+
         //réinitialisation du choix pour faire un nouveau jeu
         this.currentAnimal = null;
       } else {
-        this.result = "Essaye encore";
+        //this.result = "Essaie encore";
+        this.toastCtrl.create({
+          message: "Essaie encore!",
+          duration: 1200,
+          position: 'top',
+        }).present();
       }
     }
   }
+  
+  launchProcess(){
+    let options = {content: 'chargement en cours'};
+    let loading = this.loadingCtrl.create(options);
+    loading.present();
+    setTimeout(()=>{
+    loading.dismiss();
+    },
+    5000);
+    }
 
 }
