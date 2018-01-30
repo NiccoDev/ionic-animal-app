@@ -77,4 +77,12 @@ export class HomePage {
 
   }
 
+  /**
+   * Choix aléatoire d'un animal
+   */
+  pickAnimal(){
+    let pos = Math.floor(Math.random() * this.animals.length);
+    return pos;
+  }
+
 }
