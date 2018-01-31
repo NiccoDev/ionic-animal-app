@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, reorderArray, ToastController, LoadingController } from 'ionic-angular';
+import { DetailsPage } from '../details/details';
 //import { PercentPipe } from '@angular/common/src/pipes';
 
 @Component({
@@ -160,15 +161,22 @@ export class HomePage {
       }
     }
   }
-  
-  launchProcess(){
-    let options = {content: 'chargement en cours'};
-    let loading = this.loadingCtrl.create(options);
-    loading.present();
-    setTimeout(()=>{
-    loading.dismiss();
-    },
-    5000);
-    }
+
+  //  launchProcess(){
+  //    let options = {content: 'chargement en cours'};
+  //    let loading = this.loadingCtrl.create(options);
+  //    loading.present();
+  //    setTimeout(()=>{
+  //    loading.dismiss();
+  //    },
+  //    5000);
+  //    }
+  activateReorder() {
+    this.showReorder = !this.showReorder;
+  }
+
+  goToDetails(animal) {
+    this.navCtrl.push(DetailsPage, { data: animal });
+  }
 
 }

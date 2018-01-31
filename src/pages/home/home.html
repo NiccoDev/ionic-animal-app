@@ -16,10 +16,11 @@
     <ion-item-group [reorder]="showReorder" (ionItemReorder)="$event.applyTo(animals)">
       <ion-item *ngFor="let animal of animals; let pos=index">
         <ion-thumbnail item-left (click)="guess(animal.title)">
-          <img src="/assets/{{ animal.image }}">
+          <img src="assets/{{ animal.image }}">
         </ion-thumbnail>
         <h2>{{ animal.title }}</h2>
         <p>{{ animal.desc }}</p>
+        <ion-icon name="information-circle" item-right (click)="goToDetails(animal)"></ion-icon>
       </ion-item>
     </ion-item-group>
   </ion-list>
